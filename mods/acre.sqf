@@ -3,7 +3,7 @@
 ["ACRE_PRC152", "default", "example1"] call acre_api_fnc_copyPreset;
 
 //Name individual channels
-["ACRE_PRC152", "example1", 1, "description", "FALCON"] call acre_api_fnc_setPresetChannelField;
+["ACRE_PRC152", "example1", 1, "description", "PRIMER"] call acre_api_fnc_setPresetChannelField;
 
 //Save new channel setup
 ["ACRE_PRC152", "example1"] call acre_api_fnc_setPreset;
@@ -22,10 +22,9 @@ caran_playerRadioSetup = {
 
 	switch _team do {
 		//Set team internal radio channels
-		case 'Command': { [ (["ACRE_PRC343"] call acre_api_fnc_getRadioByType), 1] call acre_api_fnc_setRadioChannel; };
+		case 'Air': { [ (["ACRE_PRC343"] call acre_api_fnc_getRadioByType), 1] call acre_api_fnc_setRadioChannel; };
 		case 'Alpha': { [ (["ACRE_PRC343"] call acre_api_fnc_getRadioByType), 2] call acre_api_fnc_setRadioChannel; };
 		case 'Bravo': { [ (["ACRE_PRC343"] call acre_api_fnc_getRadioByType), 3] call acre_api_fnc_setRadioChannel; };
-		case 'Sierra': { [ (["ACRE_PRC343"] call acre_api_fnc_getRadioByType), 4] call acre_api_fnc_setRadioChannel; };
 	};
 	
 	if (player == leader group player) then {

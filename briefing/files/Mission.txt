@@ -1,10 +1,5 @@
-You are gathered at <marker name = 'respawn_guerrila'>a staging area</marker> some way south of the area of operations.
-<br /><br />
-Your primary objective is to clear <marker name = 'marker_targetarea'>the airfield</marker> of any hostiles. The hostages taken by the terrorists are a secondary objective. It would be preferrable that they survive but, as far as command is concerned, they were already dead when they got taken. We cannot bow to the terrorists' demands.
-%1
-<br /><br />
-Use an action menu command to call in the all clear, and another platoon will be sent in via helicopter to secure the site.
-<br /><br />
-Should you encounter further surprises after calling all clear, use another action menu command to cancel the all clear. We want to send the terrorists a clear message. Kill all of them - do not let any away.
-<br /><br />
-Board the helicopters after they have landed for a ride back home.
+An enforcer of the Kalochori Falcons, a prominent local crime syndicate, is holding a stolen HDD containing information on several large caches of hidden wartime high explosives. The drive is encrypted and unlikely to have been breached yet. Your mission is to enter <marker name = 'marker_ao'>an unfinished commercial complex</marker> serving as a base for several different gangs, and to retrieve the drive using whatever means necessary.
+<br /> <br />
+The target is likely to move around between <marker name = %1>these</marker>%2<marker name = %3>buildings</marker>, which the Falcons consider their territory. The drive is equipped with a GPS locator, which has been visible to our sensors since it was transferred to him. It will be possible to track the target's location through your GPS device, as well as through your helicopter's camera.
+<br /> <br />
+You are set up <marker name = 'respawn'>at the prep point</marker>. Retrieve the HDD, and extract from <marker name = 'marker_ao'>the area</marker>.

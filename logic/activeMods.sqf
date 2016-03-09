@@ -17,17 +17,19 @@ caran_initModList = {
 			} forEach _modStrings;
 		};
 		
-		//diag_log format ["Active addon: %1", _x];
+		//diag_log format ['Active addon: %1', _x];
 	} forEach activatedAddons;
 	
-	publicVariable "caran_modList";
+	publicVariable 'caran_modList';
+	
+	diag_log format ['Mod list: %1', caran_modList];
 	
 	true
 };
 
 caran_checkMod = {
 	
-	_modString = param[0,"",[""]];
+	_modString = param[0,'',['']];
 	_modString = toLower _modString;
 	
 	ret = false;

@@ -5,28 +5,27 @@ tf_same_sw_frequencies_for_side = true; //Generates identical short range radio 
 tf_same_lr_frequencies_for_side = true; //Generates identical long range radio settings for the entire faction.
 TF_give_microdagr_to_soldier = false; //Determines whether or not MicroDAGR is issued.
 
-//GREENFOR radios and channel settings
-tf_guer_radio_code = "_independent";
-tf_defaultGuerBacpkpack = "tf_anprc155";
-tf_defaultGuerPersonalRadio = "tf_anprc148jem";
-tf_defaultGuerRiflemanRadio = "tf_anprc154";
-tf_defaultGuerAirborneRadio = "tf_anarc156";
+//BLUFOR radios and channel settings
+tf_west_radio_code = "_independent";
+tf_defaultWestBacpkpack = "tf_anprc155";
+tf_defaultWestPersonalRadio = "tf_anprc148jem";
+tf_defaultWestRiflemanRadio = "tf_anprc154";
+tf_defaultWestAirborneRadio = "tf_anarc156";
 
-_settingsSwGuer = false call TFAR_fnc_generateSwSettings;
-_settingsSwGuer set [2, ["31.00","31.05","31.10","31.20","31.30","31.40"]];
-tf_freq_Guer = _settingsSwGuer;
+_settingsSwWest = false call TFAR_fnc_generateSwSettings;
+_settingsSwWest set [2, ["31.00","31.05","31.10","31.20","31.30","31.40"]];
+tf_freq_west = _settingsSwWest;
 
-_settingsLrGuer = false call TFAR_fnc_generateLrSettings;
-_settingsLrGuer set [2, ["31","32","33","40","50","51"]];
-tf_freq_Guer_lr = _settingsLrGuer;
+_settingsLrWest = false call TFAR_fnc_generateLrSettings;
+_settingsLrWest set [2, ["31","32","33","40","50","51"]];
+tf_freq_west_lr = _settingsLrWest;
 
 
 //SQUAD SPECIFIC RADIO CHANNEL SETTINGS: [GROUP ID, DEFAULT CHANNEL]. CHANNEL 0 IS FOR INTER-SQUAD COMMUNICATION
 caran_radioChannels = [
-	["Command", 1],
+	["Air", 1],
 	["Alpha", 2],
-	["Bravo", 3],
-	["Sierra", 4]
+	["Bravo", 3]
 ];
 
 caran_playerRadioSetup = {

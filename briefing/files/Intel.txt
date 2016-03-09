@@ -1,2 +1,7 @@
-The terrorists have occupied the ATC, a small hangar, and an unfinished terminal building, most likely keeping hostages in all of them. They are likely to be lightly armed, but reportedly have both anti-air and anti-vehicle capability.
-%1
+<marker name = 'marker_ao'>The area</marker> is a hotbed of crime activity, and will be full of armed criminals. Avoid any unnecessary hostilities, unless you wish to be severely outnunbered in an extremely difficult combat environment. Only the Falcons be immediately violent due to your presence, but the rest will respond to any aggression in kind. Avoid firing at anyone that does not present an immediate threat.
+<br /> <br />
+Each gang wears distinctive clothing, which will be handy for target identification. The Falcons %1
+<br /> <br />
+The gangs consider some buildings in the area to be their inviolable territory. Entering the buildings <marker name = %2>marked with red</marker> will risk provoking the controlling gang into open hostility. 
+<br /> <br />
+They will tolerate the ground team's presence in the complex, but our analysts say bringing the helicopter too close will likely provoke all of them. To avoid unnecessary trouble, do not fly below 50m altitude in the vicinity of the compound.

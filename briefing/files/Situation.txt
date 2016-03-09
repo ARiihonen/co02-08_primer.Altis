@@ -1,3 +1,5 @@
-A group of terrorists opposing the Altian secession from Greece has taken control of <marker name = 'marker_target'>a small airfield</marker> and have managed to capture a number of hostages, demanding the release of a number of their political leaders from prison.
-<br /><br />
-Needless to say, these demands are unacceptable. We need to teach them a thorough lesson, and to show the world we do not negotiate with terrorists.
+Altis was left severely weakened by the war of 35. The weakened security apparatus has not been able to contain rising crime rates and a heavy increase in organized international criminal activity. The government is facing a crisis, as several locations have been turned into effective no-go zones for even the post-war heavily militarized police force.
+<br /> <br />
+One of the most prominent criminal organizations active on the island has got hold of an encrypted Hard Drive containing information on several large caches of high explosives hidden during the war. One of their members is holding it in one of these no-go zones: <marker name = 'marker_ao'>an unfinished commercial complex on Almyra, abandoned before the war</marker>.
+<br /> <br />
+A police special tactical team is prepping for a recovery operation in order to prevent the criminals from getting their hands on this incredibly dangerous resource, even though entering the area will no doubt destabilize the strenuous ceasefire between the police and the gangs operating there.

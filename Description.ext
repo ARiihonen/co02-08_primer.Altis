@@ -7,9 +7,9 @@ author="Sniper Party / Caranfin";
 //overviewPicture = "LoadScreen.paa"; This does not work on dedicated servers. Arma is bad.
 
 //Loading screen texts and picture for loading the mission
-OnLoadName = "Primer";
+OnLoadName = "CO04-14 - Primer";
 OnLoadMission = "A primer initiates an escalating chain reaction, which sets off less sensitive but more powerful high explosives.";
-//loadscreen = "";
+loadscreen = "pictures\loadscreen.paa";
 
 saving = 0; //Set saving to 0 so that you can exit the mission without saving and causing dumb bugs when reloading
 disabledai = 1; //Disable AI taking over un-taken player slots
@@ -21,13 +21,13 @@ respawnDialog = 0;
 respawnOnStart = 0;
 respawnTemplates[] = {"Tickets","Spectator"};
 
-enableDebugConsole = 1; //enable debug console for the admin 
+enableDebugConsole = 0; //enable debug console for the admin 
 
 //Game type stuff. Doesn't matter, but will get shown in mission select.
 class Header {
 	gameType = COOP;
-	minPlayers = 2;
-	maxPlayers = 8;
+	minPlayers = 4;
+	maxPlayers = 14;
 };
 
 //Mission ending states, used via BIS_fnc_endMission from end.sqf
@@ -36,23 +36,21 @@ class CfgDebriefing {
 	class Dead {
 		title = "You are dead";
 		subtitle = "Mission over";
-		description = "Have fun being dead";
 		picture = "KIA";
 		pictureColor[] = {0.6,0.1,0.2,1};
 	};
 	
 	class Win {
 		title = "Mission Complete";
-		subtitle = "Nicely done, man";
-		description = "You own, buddy";
+		subtitle = "HDD Retreived";
 		picture = "\A3\ui_f\data\map\mapcontrol\taskIconDone_ca.paa";
-		picturecolor[] = {0.0,0.3,0.6,1};
+		picturecolor[] = {0.0,0.6,0.3,1};
 	};
 	
 	class Lose {
 		title = "Mission Failed";
-		subtitle = "Fuck off";
-		description = "Scrub";
+		subtitle = "Criminals still have HDD";
+		description = "Their retaliation will be severe";
 		picture = "\A3\ui_f\data\map\mapcontrol\taskIconFailed_ca.paa";
 		pictureColor[] = {1.0,0.3,0.2,1.0};
 	};
@@ -73,18 +71,6 @@ class CfgFunctions
 				file = "preSet.sqf";
 			};
 		};
-	};
-};
-
-//Parameters, accessible from the role selection screen and used to switch between pre-defined options for the mission (time of day, gear, headless client). Parameters are in an array called paramsArray.
-//So, to check, refer to paramsArray select i, where i is array index (starting with 0)
-class Params
-{
-	class ExampleParam {
-		title = "Example param title";
-		values[] = {0,1};
-		texts[] = {"ZERO", "ONE"};
-		default = 0;
 	};
 };
 

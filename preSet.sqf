@@ -17,7 +17,7 @@ if (isServer) then {
 	buildings_grn = [];
 	buildings_civ = [];
 	
-	patrol_buildings = [];
+	buildings_patrol = [];
 	
 	statics_red = [];
 	statics_grn = [];
@@ -31,9 +31,11 @@ if (isServer) then {
 	patrolgroups_grn = [];
 	patrolgroups_civ = [];
 	
-	sentries_red = [];
-	sentries_grn = [];
-	sentries_civ = [];
+	guards_red = [];
+	guards_grn = [];
+	guards_civ = [];
+	
+	radios = [];
 	
 	//Red buildings
 	
@@ -72,7 +74,7 @@ if (isServer) then {
 	
 	
 	//Patrol buildings are the ones that are not anyone's actual territory but do get traffic
-	patrol_buildings = _centre + _middle + _edge;
+	buildings_patrol = _centre + _middle + _edge;
 	
 	
 	//Red leftover size and composition (statics vs patrols)
@@ -108,23 +110,25 @@ if (isServer) then {
 	
 	//Populating statics arrays
 	
-	//Red: 1-6 for each building in centre/mid, 1-2 for each on edge
+	//Red: 1-8 for each building in centre/mid, 1-2 for each on edge
 	if ( (count _centre) > 0) then {
 		{
-			_new_statics = [(_x*6) , ( (_x*6)-5 ) ] call caran_populateArray;
+			_new_statics = [(_x*8) , ( (_x*8)-7 ) ] call caran_populateArray;
 			{
 				statics_red set [count statics_red, _x];
 			} forEach _new_statics;
 		} forEach _centre;
 	};
 	{
-		_new_statics = [(_x*6) , ( (_x*6)-5 ) ] call caran_populateArray;
+		_new_statics = [(_x*8) , ( (_x*8)-7 ) ] call caran_populateArray;
 		{
 			statics_red set [count statics_red, _x];
 		} forEach _new_statics;
 	} forEach _middle;
 	{
-		_new_statics = [(_x*2) , ( (_x*2)-1 ) ] call caran_populateArray;
+		_edge_count = _x - 10;
+		
+		_new_statics = [(_edge_count*2)+80 , ( (_edge_count*2)+79 ) ] call caran_populateArray;
 		{
 			statics_red set [count statics_red, _x];
 		} forEach _new_statics;
@@ -136,11 +140,11 @@ if (isServer) then {
 		statics_grn set [count statics_grn, _x];
 	} forEach statics_red;
 	
-	//Civ: 1-6 for each building on edge
+	//Civ: 1-8 for each building on edge
 	{
 		_edge_count = _x - 10;
 		
-		_new_statics = [(_edge_count*6) , ( (_edge_count*6)-5 ) ] call caran_populateArray;
+		_new_statics = [(_edge_count*8) , ( (_edge_count*8)-7 ) ] call caran_populateArray;
 		{
 			statics_civ set [count statics_civ, _x];
 		} forEach _new_statics;
@@ -151,20 +155,19 @@ if (isServer) then {
 	statics_grn = [statics_grn, _static_count_grn] call caran_chooseRandoms;
 	statics_civ = [statics_civ, _static_count_civ] call caran_chooseRandoms;
 	
-	
-	objective_retreived = false;
-	publicVariable "objective_retreived";
-	
 	//Define strings to search for in active addons
 	_checkList = [
-		"ace_common",
-		"asr_ai3_main",
-		"task_force_radio",
-		"hlcweapons_fhawcovert",
-		"hlcweapons_aks",
-		"acre_",
-		"rhs_",
-		"rhsusf_"
+		'ace_common',
+		'asr_ai3_main',
+		'task_force_radio',
+		'hlcweapons_mp5',
+		'hlcweapons_aks',
+		'acre_',
+		'rhs_',
+		'rhsusf_',
+		'melb',
+		'scorch_invitems',
+		'mnp_'
 	];
 	
 	//Check mod checklist against active addons
