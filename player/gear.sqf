@@ -119,13 +119,14 @@ switch _class do {
 	};
 	
 	case 'B_HELIPILOT_F': {
-		if ( 'rhsusf_' call caran_checkMod ) then {
-			_headwear = ['rhsusf_bowman_cap','G_Aviator'];
-		} else {
-			_headwear = ['H_Cap_headphones','G_Aviator'];
-		};
-		
+		_headwear = ['H_PilotHelmetHeli_B',''];
 		_uniform = 'U_I_HeliPilotCoveralls';
+		
+		if ( 'ace_' call caran_checkMod ) then {
+			_items set [ count _items, ['ACE_microDagr', 1, 'Vest'] ];
+		} else {
+			_link_items set [ count _link_items, 'ItemGPS' ];
+		};
 	};
 };
 

@@ -16,14 +16,14 @@ class EditorData
 	};
 	class LayerIndexProvider
 	{
-		nextID=278;
+		nextID=291;
 	};
 	class Camera
 	{
-		pos[]={22894.934,65.681786,18823.514};
-		dir[]={0.81728065,-0.54530197,-0.18633261};
-		up[]={0.53166544,0.83823103,-0.12121484};
-		aside[]={-0.22228917,-1.6420381e-007,-0.97499186};
+		pos[]={22985.357,7.6931834,18833.621};
+		dir[]={-0.0064467331,-0.2907652,0.95680857};
+		up[]={-0.0019601849,0.95678031,0.29079059};
+		aside[]={1.0000122,1.5697151e-007,0.0067380094};
 	};
 };
 binarizationWanted=0;
@@ -64,25 +64,6 @@ class CustomAttributes
 	{
 		name="Multiplayer";
 		class Attribute0
-		{
-			property="RespawnButton";
-			expression="true";
-			class Value
-			{
-				class data
-				{
-					class type
-					{
-						type[]=
-						{
-							"SCALAR"
-						};
-					};
-					value=0;
-				};
-			};
-		};
-		class Attribute1
 		{
 			property="RespawnTemplates";
 			expression="true";
@@ -129,6 +110,25 @@ class CustomAttributes
 							};
 						};
 					};
+				};
+			};
+		};
+		class Attribute1
+		{
+			property="RespawnButton";
+			expression="true";
+			class Value
+			{
+				class data
+				{
+					class type
+					{
+						type[]=
+						{
+							"SCALAR"
+						};
+					};
+					value=0;
 				};
 			};
 		};
@@ -4109,8 +4109,7 @@ class Mission
 									compass="ItemCompass";
 									watch="ItemWatch";
 									radio="ItemRadio";
-									goggles="G_Aviator";
-									headgear="H_Cap_headphones";
+									headgear="H_PilotHelmetHeli_B";
 								};
 							};
 							id=1522;
@@ -4233,8 +4232,7 @@ class Mission
 									compass="ItemCompass";
 									watch="ItemWatch";
 									radio="ItemRadio";
-									goggles="G_Aviator";
-									headgear="H_Cap_headphones";
+									headgear="H_PilotHelmetHeli_B";
 								};
 							};
 							id=1523;

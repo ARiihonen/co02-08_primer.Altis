@@ -1,6 +1,6 @@
 //General settings
 tf_no_auto_long_range_radio = true; //Disables automatic distribution of backpack radios to group leaders.
-tf_give_personal_radio_to_regular_soldier = false; //Enables distribution of commander radios to squadmates.
+tf_give_personal_radio_to_regular_soldier = true; //Enables distribution of commander radios to squadmates.
 tf_same_sw_frequencies_for_side = true; //Generates identical short range radio settings for the entire faction.
 tf_same_lr_frequencies_for_side = true; //Generates identical long range radio settings for the entire faction.
 TF_give_microdagr_to_soldier = false; //Determines whether or not MicroDAGR is issued.
@@ -9,8 +9,8 @@ TF_give_microdagr_to_soldier = false; //Determines whether or not MicroDAGR is i
 tf_west_radio_code = "_independent";
 tf_defaultWestBacpkpack = "tf_anprc155";
 tf_defaultWestPersonalRadio = "tf_anprc148jem";
-tf_defaultWestRiflemanRadio = "tf_anprc154";
-tf_defaultWestAirborneRadio = "tf_anarc156";
+tf_defaultWestRiflemanRadio = "tf_anprc148jem";
+tf_defaultWestAirborneRadio = "tf_anprc148jem";
 
 _settingsSwWest = false call TFAR_fnc_generateSwSettings;
 _settingsSwWest set [2, ["31.00","31.05","31.10","31.20","31.30","31.40"]];
