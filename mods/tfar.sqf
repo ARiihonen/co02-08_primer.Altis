@@ -47,7 +47,7 @@ caran_playerRadioSetup = {
 		_primaryChannel = _radioChannels select (_radioGroups find _groupID);
 	};
 
-	if (player == leader group player) then {
+	if (player == leader group player || (toUpper typeOf player) == 'B_SOLDIER_TL_F') then {
 		_secondaryChannel = 0;
 	};
 
