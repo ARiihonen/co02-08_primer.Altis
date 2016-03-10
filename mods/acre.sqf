@@ -1,12 +1,12 @@
 
 //copy default channel preset
-["ACRE_PRC152", "default", "example1"] call acre_api_fnc_copyPreset;
+["ACRE_PRC148", "default", "example1"] call acre_api_fnc_copyPreset;
 
 //Name individual channels
-["ACRE_PRC152", "example1", 1, "description", "PRIMER"] call acre_api_fnc_setPresetChannelField;
+["ACRE_PRC148", "example1", 1, "label", "PRIMER"] call acre_api_fnc_setPresetChannelField;
 
 //Save new channel setup
-["ACRE_PRC152", "example1"] call acre_api_fnc_setPreset;
+["ACRE_PRC148", "example1"] call acre_api_fnc_setPreset;
 
 caran_playerRadioSetup = {
 	_unit = player;
@@ -28,9 +28,9 @@ caran_playerRadioSetup = {
 	};
 	
 	if (player == leader group player) then {
-		[ (["ACRE_PRC152"] call acre_api_fnc_getRadioByType), 1] call acre_api_fnc_setRadioChannel;
+		[ (["ACRE_PRC148"] call acre_api_fnc_getRadioByType), 1] call acre_api_fnc_setRadioChannel;
 		_personalRadio = ["ACRE_PRC343"] call acre_api_fnc_getRadioByType; 
-		_handheldRadio = ["ACRE_PRC152"] call acre_api_fnc_getRadioByType; 
+		_handheldRadio = ["ACRE_PRC148"] call acre_api_fnc_getRadioByType; 
 		_success = [ [ _personalRadio, _handheldRadio ] ] call acre_api_fnc_setMultiPushToTalkAssignment;
 	};
 };

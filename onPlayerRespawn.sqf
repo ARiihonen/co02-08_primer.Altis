@@ -84,9 +84,9 @@ _gps_track = [] spawn {
 
 	while { true } do {
 		
-		waitUntil { 'ItemGPS' in (items player + assignedItems player) || 'ACE_microDagr' in (items player + assignedItems player) };
+		waitUntil { 'ItemGPS' in (items player + assignedItems player) || 'ACE_microDAGR' in (items player + assignedItems player) };
 		
-		while { 'ItemGPS' in (items player + assignedItems player) || 'ACE_microDagr' in (items player + assignedItems player) } do {
+		while { 'ItemGPS' in (items player + assignedItems player) || 'ACE_microDAGR' in (items player + assignedItems player) } do {
 			sleep 1;
 			
 			target_marker setMarkerPos (getPos (missionNamespace getVariable 'objective_owner'));

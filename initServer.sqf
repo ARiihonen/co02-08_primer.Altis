@@ -76,6 +76,7 @@ _new_red = [];
 	_new_red set [count _new_red, _building];
 } forEach buildings_red;
 buildings_red = _new_red;
+publicVariable 'buildings_red';
 
 _new_grn = [];
 {
@@ -83,6 +84,7 @@ _new_grn = [];
 	_new_grn set [count _new_grn, _building];
 } forEach buildings_grn;
 buildings_grn = _new_grn;
+publicVariable 'buildings_grn';
 
 _new_civ = [];
 {
