@@ -1,4 +1,4 @@
-<marker name = 'marker_ao'>The area</marker> is a hotbed of crime activity, and will be full of armed criminals. Avoid any unnecessary hostilities, unless you wish to be severely outnunbered in an extremely difficult combat environment. Only the Falcons will be immediately violent due to your presence, but the rest will respond to any aggression in kind. Avoid firing at anyone that does not present an immediate threat.
+<marker name = 'marker_ao'>The area</marker> is a hotbed of crime activity, and will be full of armed criminals. Avoid any unnecessary hostilities, unless you wish to be severely outnumbered in an extremely difficult combat environment. Only the Falcons will be immediately violent due to your presence, but the rest will respond to any aggression in kind. Avoid firing at anyone that does not present an immediate threat.
 <br /> <br />
 Each gang wears distinctive clothing, which will be handy for target identification. The Falcons %1
 <br /> <br />

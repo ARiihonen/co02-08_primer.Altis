@@ -34,18 +34,29 @@ primer_patrolWaypoints = {
 	};
 	
 	_wpLast = _grp addWaypoint [waypointPosition _wpOne, 0];
-	_wpLast setWaypointStatements ['true', format ['[(group this), %1] call primer_patrolWaypoints;', _buildings] ];
+	//_wpLast setWaypointStatements ['true', format ['[(group this), %1] call primer_patrolWaypoints;', _buildings] ];
 };
 
-[group target, buildings_red] call primer_patrolWaypoints;
+for '_i' from 1 to 4 do {
+	[group target, buildings_red] call primer_patrolWaypoints;
+	_wpLast = (group target) addWaypoint [waypointPosition [(group target), 1], 0];
+};
+_wpLast setWaypointType 'CYCLE';
+
 {
 	_patrols = call compile format ['patrolgroups_%1', _x];
 	{
-		[_x, buildings_patrol] call primer_patrolWaypoints;
+		for '_i' from 1 to 3 do {
+			[_x, buildings_patrol] call primer_patrolWaypoints;
+		};
+		_wpLast = _x addWaypoint [waypointPosition [_x, 1], 0];
+		_wpLast setWaypointType 'CYCLE';
 	} forEach _patrols;
 	
 	_guards = call compile format ['guards_%1', _x];
 	{
 		[_x, [(_x getVariable 'building')]] call primer_patrolWaypoints;
+		_wpLast = _x addWaypoint [waypointPosition [_x, 1], 0];
+		_wpLast setWaypointType 'CYCLE';
 	} forEach _guards;
 } forEach factions;

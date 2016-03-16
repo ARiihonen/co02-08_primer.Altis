@@ -7,7 +7,7 @@ author="Sniper Party / Caranfin";
 //overviewPicture = "LoadScreen.paa"; This does not work on dedicated servers. Arma is bad.
 
 //Loading screen texts and picture for loading the mission
-OnLoadName = "CO04-14 - Primer";
+OnLoadName = "CO04-08 - Primer";
 OnLoadMission = "A primer initiates an escalating chain reaction, which sets off less sensitive but more powerful high explosives.";
 loadscreen = "pictures\loadscreen.paa";
 
@@ -27,7 +27,7 @@ enableDebugConsole = 0; //enable debug console for the admin
 class Header {
 	gameType = COOP;
 	minPlayers = 4;
-	maxPlayers = 14;
+	maxPlayers = 8;
 };
 
 //Mission ending states, used via BIS_fnc_endMission from end.sqf
@@ -42,7 +42,7 @@ class CfgDebriefing {
 	
 	class Win {
 		title = "Mission Complete";
-		subtitle = "HDD Retreived";
+		subtitle = "HDD Retrieved";
 		picture = "\A3\ui_f\data\map\mapcontrol\taskIconDone_ca.paa";
 		picturecolor[] = {0.0,0.6,0.3,1};
 	};

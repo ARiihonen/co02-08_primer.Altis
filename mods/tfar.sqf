@@ -7,7 +7,7 @@ TF_give_microdagr_to_soldier = false; //Determines whether or not MicroDAGR is i
 
 //BLUFOR radios and channel settings
 tf_west_radio_code = "_independent";
-tf_defaultWestBacpkpack = "tf_anprc155";
+tf_defaultWestBackpack = "tf_anprc155";
 tf_defaultWestPersonalRadio = "tf_anprc148jem";
 tf_defaultWestRiflemanRadio = "tf_anprc148jem";
 tf_defaultWestAirborneRadio = "tf_anprc148jem";

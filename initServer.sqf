@@ -427,13 +427,23 @@ if (!('scorch_invitems' call caran_checkMod )) then {
 
 //Play random music from radios
 _radios_music =  [] spawn {
-
+	
+	active_radios = [];
+	for '_i' from 1 to 3 do {
+		_radio = radios select floor random count radios;
+		if (! (_radio in active_radios) ) then {
+			active_radios set [count active_radios, _radio];
+		};
+	};
+	
 	{
 		_x spawn {
 			while { true } do {
-				_radio = _this;
-				_position = _radio modelToWorld [0,0,0];
+				_radio = (radios - active_radios) select floor random count (radios - active_radios);
+				active_radios set [count active_radios, _radio];
 				
+				_position = _radio modelToWorld [0,0,0];
+						
 				_filePath = [(str missionConfigFile), 0, -15] call BIS_fnc_trimString;
 				_music_list = [ 
 					['music\dance.ogg', 180], 
@@ -449,11 +459,12 @@ _radios_music =  [] spawn {
 				
 				_length = _selection select 1;
 				
-				playSound3D [_filePath, _radio, true, _position, 0.5, 1, 0];
+				playSound3D [_filePath, _radio, true, _position, 0.25, 1, 0];
 				sleep _length;
+				active_radios = active_radios - [_radio];
 			};
 		};
-	} forEach radios;
+	} forEach active_radios;
 };
 
 //client inits wait for serverInit to be true before starting, to make sure all variables the server sets up are set up before clients try to refer to them (which would cause errors)
