@@ -39,8 +39,8 @@ primer_patrolWaypoints = {
 
 for '_i' from 1 to 4 do {
 	[group target, buildings_red] call primer_patrolWaypoints;
-	_wpLast = (group target) addWaypoint [waypointPosition [(group target), 1], 0];
 };
+_wpLast = (group target) addWaypoint [waypointPosition [(group target), 1], 0];
 _wpLast setWaypointType 'CYCLE';
 
 {
