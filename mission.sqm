@@ -8,7 +8,7 @@ class EditorData
 	toggles=9;
 	class ItemIDProvider
 	{
-		nextID=1525;
+		nextID=1531;
 	};
 	class MarkerIDProvider
 	{
@@ -16,7 +16,7 @@ class EditorData
 	};
 	class LayerIndexProvider
 	{
-		nextID=356;
+		nextID=369;
 	};
 	class Camera
 	{
@@ -65,25 +65,6 @@ class CustomAttributes
 		name="Multiplayer";
 		class Attribute0
 		{
-			property="RespawnButton";
-			expression="true";
-			class Value
-			{
-				class data
-				{
-					class type
-					{
-						type[]=
-						{
-							"SCALAR"
-						};
-					};
-					value=0;
-				};
-			};
-		};
-		class Attribute1
-		{
 			property="RespawnTemplates";
 			expression="true";
 			class Value
@@ -129,6 +110,25 @@ class CustomAttributes
 							};
 						};
 					};
+				};
+			};
+		};
+		class Attribute1
+		{
+			property="RespawnButton";
+			expression="true";
+			class Value
+			{
+				class data
+				{
+					class type
+					{
+						type[]=
+						{
+							"SCALAR"
+						};
+					};
+					value=0;
 				};
 			};
 		};
@@ -17834,8 +17834,8 @@ class Mission
 			class Attributes
 			{
 				name="trigger_dangerzone";
-				condition="(getPos helo select 2 < 50) && (helo distance trigger_dangerzone < 150)";
-				onActivation="if (isServer) then { [(factions - ['red']), east] execVM 'ai\turnFaction.sqf'; };";
+				condition="isServer && (getPos helo select 2 < 50) && (helo distance trigger_dangerzone < 150)";
+				onActivation="_fuck = [(factions - ['red']), east] execVM 'ai\turnFaction.sqf';";
 				sizeA=150;
 				sizeB=150;
 				timeout[]={10,10,10};
@@ -17850,9 +17850,11 @@ class Mission
 			class Attributes
 			{
 				name="trigger_area";
-				onActivation="missionNamespace setVariable ['mission_started', true];";
+				onActivation="missionNamespace setVariable ['mission_started', true]; hint ""mission started"";";
 				sizeA=500;
 				sizeB=500;
+				timeout[]={60,60,60};
+				interuptable=1;
 				activationBy="WEST";
 			};
 			id=1465;

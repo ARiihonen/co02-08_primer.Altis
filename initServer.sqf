@@ -263,134 +263,126 @@ if ( 'melb' call caran_checkMod ) then {
 	helo setDir _dir;
 };
 
-//Spawns a thread that will run a loop to keep an eye on mission progress and to end it when appropriate, checking which ending should be displayed.
-_progress = [] spawn {
-	
-	//Init all variables you need in this loop
-	_ending = false;
-	_players_dead = false;
-	_players_away = false;
-	
-	//Init objective
-	missionNamespace setVariable ['objective_owner', target, true];
-	
-	//Handle neutrals going enemy when damaged by players
-	{
-		if (!isPlayer _x && side _x != east) then {
-			_x addEventHandler ['HandleDamage', "
-				_target = _this select 0;
-				_source = _this select 3;
-				_damage = _this select 2;
-				
-				if (isPlayer _source) then {
-					[[(_target getVariable 'faction')], east] execVM 'ai\turnFaction.sqf';
-				};
-				
-				_damage
-			"];
-		};
-	} forEach allUnits;
+//Init objective
+missionNamespace setVariable ['objective_owner', target, true];
 
-	//Starts a loop to check mission status every second, update tasks, and end mission when appropriate
-	while {!_ending} do {
-		
-		sleep 1;
-		
-		//Mission ending condition check
-		if ( _players_dead || (_players_away && !alive target ) ) then {
-			_ending = true;
+//Handle neutrals going enemy when damaged by players
+{
+	if (!isPlayer _x && side _x != east) then {
+		_x addEventHandler ['HandleDamage', "
+			_target = _this select 0;
+			_source = _this select 3;
+			_damage = _this select 2;
 			
-			_end = 'Lose';
-			{
-				if (alive _x && !([trigger_area, (getPos (vehicle _x) )] call BIS_fnc_inTrigger ) ) then {
-					if ( ('sc_harddrive' in (items _x + assignedItems _x) ) || _x == (missionNamespace getVariable 'objective_owner') ) then {
-						_end = 'Win';
-					};
-				};
-			} forEach playableUnits;
-			
-			if (_end == 'Win') then {
-				['MainTask', 'SUCCEEDED', false] call BIS_fnc_taskSetState;
-			} else {
-				['MainTask', 'FAILED', false] call BIS_fnc_taskSetState;
+			if (isPlayer _source) then {
+				[[(_target getVariable 'faction')], east] execVM 'ai\turnFaction.sqf';
 			};
 			
-			sleep 15;
-			
-			//Runs end.sqf on everyone. For varying mission end states, calculate the correct one here and send it as an argument for end.sqf
-			[[_end,'end.sqf'], 'BIS_fnc_execVM', true, false] spawn BIS_fnc_MP;
-		};
-		
-		//Induce chaos when target is dead
-		if (!(missionNamespace getVariable ['shit_in_fan', false])) then {
-			if (!alive (missionNamespace getVariable 'objective_owner')) then {
-				missionNamespace setVariable ['shit_in_fan', true];
-
-				{
-					_faction = _x;
-					_rand = random 1;
-					
-					if (_rand < 0.6) then {
-					
-						if (_rand > 0.4) then {
-								[[_faction], east] execVM 'ai\turnFaction.sqf';
-						} else {
-							
-							if (_rand > 0.2) then {
-								[[_faction], resistance] execVM 'ai\turnFaction.sqf';
-							} else {
-								[[_faction], west] execVM 'ai\turnFaction.sqf';
-							};
-						};
-					};
-				} forEach (factions - ['red']);
-			};
-		};
-		
-		//Induce extra chaos when leaving target area
-		if (!(missionNamespace getVariable ['shit_totally_in_fan', false])) then {
-			if (!alive target) then {
-				_bool = true;
-				{
-					if ( ([trigger_dangerzone, (getPos (vehicle _x) )] call BIS_fnc_inTrigger) && alive _x ) then {
-						_bool = false;
-					};
-				} forEach playableUnits;
-				
-				if (_bool) then {
-					missionNamespace setVariable ['shit_totally_in_fan', true];
-					
-					civilian setFriend [civilian, 0];
-					civilian setFriend [resistance, 0];
-					civilian setFriend [west, 0];
-					civilian setFriend [east, 0];
-					resistance setFriend [east, 0];
-					resistance setFriend [west, 0];
-					resistance setFriend [civilian, 0];
-					east setFriend [resistance, 0];
-					east setFriend [civilian, 0];
-				};
-			};
-		};
-		
-		//Sets _players_dead as true if nobody is still alive
-		_players_dead = true;
-		{
-			if (alive _x) then {
-				_players_dead = false;
-			};
-		} forEach playableUnits;
-		
-		//Sets players_away as true if nobody is in the area and the mission has been started
-		_players_away = true;
-		{
-			if ( ([trigger_area, (getPos (vehicle _x) )] call BIS_fnc_inTrigger) && alive _x ) then {
-				_players_away = false;
-			};
-		} forEach playableUnits;
-		
+			_damage
+		"];
 	};
+} forEach allUnits;
+
+//Induce chaos when target dead
+induceChaos = {
+	{
+		_faction = _x;
+		_rand = random 1;
+		
+		if (_rand < 0.6) then {
+		
+			if (_rand > 0.4) then {
+					[[_faction], east] execVM 'ai\turnFaction.sqf';
+			} else {
+				
+				if (_rand > 0.2) then {
+					[[_faction], resistance] execVM 'ai\turnFaction.sqf';
+				} else {
+					[[_faction], west] execVM 'ai\turnFaction.sqf';
+				};
+			};
+		};
+	} forEach (factions - ['red']);
 };
+
+//Induce extra chaos when leaving target area
+extraChaos = {
+	missionNamespace setVariable ['shit_totally_in_fan', true];
+	
+	civilian setFriend [civilian, 0];
+	civilian setFriend [resistance, 0];
+	civilian setFriend [west, 0];
+	civilian setFriend [east, 0];
+	resistance setFriend [east, 0];
+	resistance setFriend [west, 0];
+	resistance setFriend [civilian, 0];
+	east setFriend [resistance, 0];
+	east setFriend [civilian, 0];
+};
+
+//handle mission ending
+handleEnding = {
+	_end = 'Lose';
+	if ( !alive target && !( [trigger_area, (getPos vehicle target)] call BIS_fnc_inTrigger ) ) then {
+		_end = 'Win';
+	} else {
+		{
+			if (alive _x && !([trigger_area, (getPos (vehicle _x) )] call BIS_fnc_inTrigger ) ) then {
+				if ( ('sc_harddrive' in (items _x + assignedItems _x) ) || _x == (missionNamespace getVariable 'objective_owner') ) then {
+					_end = 'Win';
+				};
+			};
+		} forEach playableUnits;
+	};
+	
+	if (_end == 'Win') then {
+		['MainTask', 'SUCCEEDED', false] call BIS_fnc_taskSetState;
+	} else {
+		['MainTask', 'FAILED', false] call BIS_fnc_taskSetState;
+	};
+	
+	//Runs end.sqf on everyone. For varying mission end states, calculate the correct one here and send it as an argument for end.sqf
+	[[_end,'end.sqf'], 'BIS_fnc_execVM', true, false] spawn BIS_fnc_MP;
+};
+
+//Triggers for mission state
+
+//end mission
+trigger_ending = createTrigger ['EmptyDetector', [0,0,0], false];
+trigger_ending setTriggerActivation ['NONE', 'PRESENT', false];
+trigger_ending setTriggerStatements [
+	" ( [trigger_area, vehicle target] call BIS_fnc_inTrigger && missionNamespace getVariable ['mission_started', false] && { [trigger_area, vehicle _x] call BIS_fnc_inTrigger } count playableUnits == 0 ) || ( !([trigger_area, vehicle target] call BIS_fnc_inTrigger) && (!alive target || { _x distance (vehicle target) < 1000 } count playableUnits == 0) )",
+	"call handleEnding;",
+	""
+];
+trigger_ending setTriggerTimeout [15,15,15,false];
+
+//players dead
+trigger_dead = createTrigger ['EmptyDetector', [0,0,0], false];
+trigger_dead setTriggerActivation ['NONE', 'PRESENT', false];
+trigger_dead setTriggerStatements [
+	"count playableUnits == 0",
+	"call handleEnding;",
+	""
+];
+
+//induce chaos when target dies
+trigger_chaos = createTrigger ['EmptyDetector', [0,0,0], false];
+trigger_chaos setTriggerActivation ['NONE', 'PRESENT', false];
+trigger_chaos setTriggerStatements [
+	"!alive target",
+	"call induceChaos;",
+	""
+];
+
+//extra chaos when target dead and players have left the area
+trigger_extrachaos = createTrigger ['EmptyDetector', [0,0,0], false];
+trigger_extrachaos setTriggerActivation ['NONE', 'PRESENT', false];
+trigger_extrachaos setTriggerStatements [
+	"!alive target && { [trigger_dangerzone, vehicle _x] call BIS_fnc_inTrigger } count playableUnits == 0",
+	"call extraChaos;",
+	""
+];
 
 //Handle objective actions if SC inventory items is not on
 if (!('scorch_invitems' call caran_checkMod )) then {
@@ -425,46 +417,31 @@ if (!('scorch_invitems' call caran_checkMod )) then {
 	};
 };
 
-//Play random music from radios
+//Play random music from a radio
 _radios_music =  [] spawn {
-	
-	active_radios = [];
-	for '_i' from 1 to 3 do {
-		_radio = radios select floor random count radios;
-		if (! (_radio in active_radios) ) then {
-			active_radios set [count active_radios, _radio];
-		};
+	_radio = radios call BIS_fnc_selectRandom;
+	while { true } do {
+		
+		_position = _radio modelToWorld [0,0,0];
+				
+		_filePath = [(str missionConfigFile), 0, -15] call BIS_fnc_trimString;
+		_music_list = [ 
+			['music\dance.ogg', 180], 
+			['music\dubstep.ogg', 130], 
+			['music\house.ogg', 265], 
+			['music\moose.ogg', 180],
+			['music\rumble.ogg', 180]
+		];
+		_selection = _music_list select floor random count _music_list;
+		
+		_song = _selection select 0;
+		_filePath = _filePath + _song;
+		
+		_length = _selection select 1;
+		
+		playSound3D [_filePath, _radio, true, _position, 0.5, 1, 0];
+		sleep _length;
 	};
-	
-	{
-		_x spawn {
-			while { true } do {
-				_radio = (radios - active_radios) select floor random count (radios - active_radios);
-				active_radios set [count active_radios, _radio];
-				
-				_position = _radio modelToWorld [0,0,0];
-						
-				_filePath = [(str missionConfigFile), 0, -15] call BIS_fnc_trimString;
-				_music_list = [ 
-					['music\dance.ogg', 180], 
-					['music\dubstep.ogg', 130], 
-					['music\house.ogg', 265], 
-					['music\moose.ogg', 180],
-					['music\rumble.ogg', 180]
-				];
-				_selection = _music_list select floor random count _music_list;
-				
-				_song = _selection select 0;
-				_filePath = _filePath + _song;
-				
-				_length = _selection select 1;
-				
-				playSound3D [_filePath, _radio, true, _position, 0.25, 1, 0];
-				sleep _length;
-				active_radios = active_radios - [_radio];
-			};
-		};
-	} forEach active_radios;
 };
 
 //client inits wait for serverInit to be true before starting, to make sure all variables the server sets up are set up before clients try to refer to them (which would cause errors)

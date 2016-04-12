@@ -5,6 +5,8 @@
 	};
 } forEach allUnits;
 
+group target allowFleeing 0;
+
 primer_patrolWaypoints = {
 	_grp = _this select 0;
 	_buildings = _this select 1;
