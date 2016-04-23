@@ -20,7 +20,7 @@ _ace_settings = [
 	["ace_medical_enableOverdosing", false], /*enable overdosing*/
 	["ace_medical_enableAdvancedWounds", false], /*Wounds opening*/
 	["ace_medical_enableVehicleCrashes", true], /*Vehicle crashes*/
-	["ace_medical_medicSetting_basicEpi", 1], /*Same as PAK/SK? */
+	["ace_medical_medicSetting_basicEpi", 0], /*Same as PAK/SK? */
 	["ace_medical_useLocation_basicEpi", 0], /*0 = anywhere*/
 	["ace_medical_medicSetting_PAK", 1], /*Who can use PAK (1 = medic only, 2 = doctor only, (0 = anyone??) )*/
 	["ace_medical_consumeItem_PAK", -1], /*Remove PAK on use (-1 = no)*/

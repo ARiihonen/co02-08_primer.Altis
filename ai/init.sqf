@@ -5,6 +5,12 @@
 	};
 } forEach allUnits;
 
+//set ai skills
+_thing = execVM "ai\skills.sqf";
+waitUntil { scriptDone _thing };
+
+[(allUnits - playableUnits)] call ai_setSkills;
+
 group target allowFleeing 0;
 
 primer_patrolWaypoints = {

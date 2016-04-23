@@ -246,8 +246,8 @@ _styles = ['shemags', 'leathers', 'military', 'sandals', 'class', 'terrors'];
 	} forEach ( call compile format ['buildings_%1', _faction] );
 } forEach factions;
 
-//Task setting: ['TaskName', locality, ['Description', 'Title', 'Marker'], target, 'STATE', priority, showNotification, true] call BIS_fnc_setTask;
-['MainTask', true, ['Retrieve the Hard Drive containing data on a large explosives cache hidden during the war.', 'Retrieve HDD', ''], nil, 'ASSIGNED', 0, false, true] call BIS_fnc_setTask;
+//Give main task
+[true, 'MainTask', ['Retrieve the Hard Drive containing data on a large explosives cache hidden during the war.', 'Retrieve HDD', ''], nil, 'ASSIGNED', 0, false, 'intel', false] call BIS_fnc_taskCreate;
 
 //Switch helo to MELB if available
 if ( 'melb' call caran_checkMod ) then {
